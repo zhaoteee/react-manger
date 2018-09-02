@@ -32,3 +32,6 @@ b:其中`modifyVars`用于设置antd自定义主题，然而less 3.8的版本在
 ```
 ,大致意思为`default.less`里的`tint`无法解析识别。
 将已安装的less3.8移除`yarn remove less`,重新安装`yarn add less@2.7.3`,此时antd自定义主题功能也没有问题了
+
+### 记录
+1. 3.4 9.3，基本布局

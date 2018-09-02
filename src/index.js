@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import Life from './pages/demo/Life.js';
+import Admin from './admin.js';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Life />, document.getElementById('root'));
+ReactDOM.render(<Admin />, document.getElementById('root'));
 registerServiceWorker();
