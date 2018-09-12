@@ -3,7 +3,6 @@ import { Row, Col } from 'antd'
 
 import Header from './components/Header'
 import Footer from './components/Footer'
-import Home from './pages/home/home.js'
 import NavLeft from './components/NavLeft'
 import './style/common.less'
 
