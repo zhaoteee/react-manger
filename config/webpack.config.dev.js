@@ -224,9 +224,9 @@ module.exports = {
                 loader: require.resolve('less-loader'),
                 options: { 
                   modifyVars: {
-                    '@primary-color': '#f9c700',
-                    'link-color': '#1DA57A',
-                    'border-radius-base': '2px',
+                    // '@primary-color': '#f9c700',
+                    // 'link-color': '#1DA57A',
+                    // 'border-radius-base': '2px',
                   },
                   javascriptEnabled: true,
                 }

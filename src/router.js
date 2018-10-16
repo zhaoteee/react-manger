@@ -9,6 +9,14 @@ import Modals from './pages/ui/modals'
 import Loading from './pages/ui/loading'
 import Notification from './pages/ui/notification'
 import Messages from './pages/ui/messages'
+import Tabs from './pages/ui/tabs'
+import Carousel from './pages/ui/carousel'
+import Gallery from './pages/ui/gallery'
+
+import FormLogin from './pages/form/login'
+import FormRegister from './pages/form/register'
+
+import BasicTable from './pages/table/basic'
 
 import NoMatch from './pages/nomatch'
 export default class IRouter extends React.Component {
@@ -25,6 +33,12 @@ export default class IRouter extends React.Component {
                                 <Route exact={true} path='/admin/ui/loadings' component={Loading}></Route>
                                 <Route exact={true} path='/admin/ui/notification' component={Notification}></Route>
                                 <Route exact={true} path='/admin/ui/messages' component={Messages}></Route>
+                                <Route exact={true} path='/admin/ui/tabs' component={Tabs}></Route>
+                                <Route exact={true} path='/admin/ui/carousel' component={Carousel}></Route>
+                                <Route exact={true} path='/admin/ui/gallery' component={Gallery}></Route>
+                                <Route exact={true} path='/admin/form/login' component={FormLogin}></Route>
+                                <Route exact={true} path='/admin/form/reg' component={FormRegister}></Route>
+                                <Route exact={true} path='/admin/table/basic' component={BasicTable}></Route>
                                 <Route component={NoMatch}></Route>
                             </Switch>
                         </Admin>

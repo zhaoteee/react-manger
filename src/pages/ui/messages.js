@@ -25,7 +25,7 @@ export default class Messages extends React.Component {
              <div>
                  <Card title='信息提醒框'>
                      <Button type="primary" onClick={this.openMessage}>normal</Button>
-                     <Button type="primary" onClick={this.openMessageLoad}>loading</Button>
+                     <Button type="primary" onClick={this.openMessageLoad}>loadingyan</Button>
                      <Button type="primary" onClick={()=> this.openMes('success')}>success</Button>
                      <Button type="primary" onClick={()=> this.openMes('info')}>info</Button>
                      <Button type="primary" onClick={()=> this.openMes('warning')}>warning</Button>
