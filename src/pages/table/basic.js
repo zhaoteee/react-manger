@@ -1,9 +1,13 @@
 import React from 'react'
 import {Card, Table} from 'antd'
-import axios from 'axios'
+import axios from '../../axios/index'
+import utils from '../../util/util'
 export default class BasicTable extends React.Component {
     state = {
         dataSource2: []
+    }
+    params = {
+        page: 1
     }
     componentDidMount() {
         const dataSource = [
@@ -32,20 +36,43 @@ export default class BasicTable extends React.Component {
                 birdthday: '2013-2-22'
             }
         ]
+        dataSource.map((item, indx)=> {
+            item.key = indx
+        })
         this.setState({
             dataSource
         })
         this.request()
     }
     request = ()=>{
-        console.log(this)
+        let _this = this
         let base_url = 'https://www.easy-mock.com/mock/5ad430cacdecd20f040889cd/htgl'
-        axios.get(base_url+'/table/list').then(res=>{
-            if(res.status == 200 && res.data.code == 0) {
-                this.setState({
-                    dataSource2: res.data.result.list
-                })
+
+        axios.ajax({
+            url: '/table/list',
+            data: {
+                params: {
+                    page: this.params.page
+                }
             }
+        }).then(res=>{
+             res.result.list.map((item, indx)=> {
+                item.key = indx
+            })
+            this.setState({
+                dataSource2: res.result.list,
+                pagination: utils.pagination(res, current=>{
+                    _this.params.page = current
+                    _this.request()
+                })
+            })
+        })
+    }
+    onRowClick = (record, index)=> {
+        let selectKey = [index]
+        this.setState({
+            selectedRowKeys: selectKey,
+            selectItem: record
         })
     }
     render() {
@@ -61,19 +88,63 @@ export default class BasicTable extends React.Component {
             },
             {
                 title: '性别',
-                dataIndex: 'sex'
+                dataIndex: 'sex',
+                render(sex) {
+                    return sex == 1 ? '男':'女'
+                }
             },
             {
                 title: '状态',
-                dataIndex: 'state'
+                dataIndex: 'state',
+                render(state) {
+                    let config = {
+                        '1': 'xianyu',
+                        '2': 'langzhi',
+                        '3': 'caizi',
+                        '4': 'asdada',
+                        '5': 'asdaddga'
+                    }
+                    return config[state]
+                }
             },{
                 title: '爱好',
-                dataIndex: 'interest'
+                dataIndex: 'interest',
+                render(ab) {
+                    let config = {
+                        '1': 'xianyu',
+                        '2': 'langzhi',
+                        '3': 'caizi',
+                        '4': 'asdada',
+                        '5': 'asdaddga',
+                        '6': 'hgfaada',
+                        '7': 'aspihajg'
+                    }
+                    return config[ab]
+                }
             },{
                 title: '生日',
                 dataIndex: 'birdthday'
             },
         ]
+        let {selectedRowKeys} = this.state;
+        const rowSelection = {
+            type: 'radio',
+            selectedRowKeys
+        }
+        const rowCheckSelection = {
+            type: 'checkbox',
+            selectedRowKeys,
+            onChange: (selectedRowKeys, selectedRows)=>{
+                let ids = []
+                selectedRows.map(item=>{
+                    ids.push(item.id)
+                })
+                this.setState({
+                    selectedRowKeys,
+                    selectedRowIds: ids
+                })
+            }
+        }
         return (
             <div>
                 <Card title={'基础表格'}>
@@ -90,6 +161,39 @@ export default class BasicTable extends React.Component {
                         dataSource={this.state.dataSource2}
                         columns={colums}
                         pagination={false}
+                    ></Table>
+                </Card>
+                <Card title={'MOCK单选表格'} style={{margin: '10px 0'}}>
+                    <Table
+                        bordered
+                        onRow={(record, index) => {
+                            return {
+                              onClick: () => {
+                                  this.onRowClick(record, index) // 点击行
+                              },
+                            };
+                        }}
+                        rowSelection={rowSelection}
+                        dataSource={this.state.dataSource2}
+                        columns={colums}
+                        pagination={false}
+                    ></Table>
+                </Card>
+                <Card title={'MOCK复选表格'} style={{margin: '10px 0'}}>
+                    <Table
+                        bordered
+                        rowSelection={rowCheckSelection}
+                        dataSource={this.state.dataSource2}
+                        columns={colums}
+                        pagination={false}
+                    ></Table>
+                </Card>
+                <Card title={'MOCK表格分页'} style={{margin: '10px 0'}}>
+                    <Table
+                        bordered
+                        dataSource={this.state.dataSource2}
+                        columns={colums}
+                        pagination={this.state.pagination}
                     ></Table>
                 </Card>
             </div>
