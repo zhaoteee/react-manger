@@ -140,7 +140,11 @@ export default class City extends React.Component{
                     {/*
                         wrappedComponentRef
                     */}
-                    <OpenCityForm wrappedComponentRef={(inst)=>{this.cityForm = inst;}}/>
+                    <OpenCityForm wrappedComponentRef={(inst)=>{
+                        //组件挂载的时候会生成组件实例对象，将对象赋值到this.cityForm上
+                        console.log(inst);
+                        this.cityForm = inst;
+                    }}/>
                 </Modal>
             </div>
         );

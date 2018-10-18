@@ -21,6 +21,11 @@ import HighTable from './pages/table/high'
 
 import City from './pages/city/index'
 
+import Order from './pages/order/index'
+import OrderDetail from './pages/order/detail'
+
+import Common from './common'
+
 import NoMatch from './pages/nomatch'
 export default class IRouter extends React.Component {
     render(){
@@ -44,12 +49,18 @@ export default class IRouter extends React.Component {
                                 <Route exact={true} path='/admin/table/basic' component={BasicTable}></Route>
                                 <Route exact={true} path='/admin/table/high' component={HighTable}></Route>
                                 <Route exact={true} path='/admin/city' component={City}></Route>
+                                <Route exact={true} path='/admin/order' component={Order}></Route>
                                 <Route component={NoMatch}></Route>
                             </Switch>
                         </Admin>
                         }>
                     </Route>
-                    <Route path='/order/detail' component={Login}></Route>
+                    <Route  path='/common' render={() =>
+                        <Common>
+                            <Route path='/common/order/detail/:orderId' component={OrderDetail}></Route>
+                        </Common>
+                    }
+                    />
                 </App>
             </HashRouter>
         )
