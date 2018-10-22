@@ -80,7 +80,7 @@ const menuList = [
     },
     {
         title: '订单管理',
-        key: '/order',
+        key: '/admin/order',
         btnList: [
             {
                 title: '订单详情',
@@ -94,11 +94,11 @@ const menuList = [
     },
     {
         title: '员工管理',
-        key: '/user'
+        key: '/admin/user'
     },
     {
         title: '车辆地图',
-        key: '/bikeMap'
+        key: '/admin/bikeMap'
     },
     {
         title: '图标',

@@ -24,6 +24,12 @@ import City from './pages/city/index'
 import Order from './pages/order/index'
 import OrderDetail from './pages/order/detail'
 
+import User from './pages/user/index'
+
+import BikeMap from './pages/map/bikeMap'
+
+import Bar from './pages/echarts/bar'
+
 import Common from './common'
 
 import NoMatch from './pages/nomatch'
@@ -50,6 +56,9 @@ export default class IRouter extends React.Component {
                                 <Route exact={true} path='/admin/table/high' component={HighTable}></Route>
                                 <Route exact={true} path='/admin/city' component={City}></Route>
                                 <Route exact={true} path='/admin/order' component={Order}></Route>
+                                <Route exact={true} path='/admin/user' component={User}></Route>
+                                <Route exact={true} path='/admin/bikeMap' component={BikeMap}></Route>
+                                <Route exact={true} path='/admin/echarts/bar' component={Bar}></Route>
                                 <Route component={NoMatch}></Route>
                             </Switch>
                         </Admin>

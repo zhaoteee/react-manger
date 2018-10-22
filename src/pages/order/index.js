@@ -2,6 +2,7 @@ import React from 'react'
 import {Card, Button, Table, Form, Select, Modal, message,DatePicker} from 'antd'
 import axios from '../../axios/index'
 import utils from '../../util/util'
+import BaseForm from '../../components/BaseForm/index'
 const FormItem = Form.Item
 const Option = Select.Option
 export default class BasicTable extends React.Component {
@@ -10,28 +11,32 @@ export default class BasicTable extends React.Component {
     params = {
         page: 1
     }
+    formList = [{
+        type: 'SELECT',
+        label: '城市',
+        placeholder: '全部',
+        field: 'city',
+        initialValue: '1',
+        width: 80,
+        list: [{id: '0', name: '全部'},{id: '1', name: '北京'},{id: '2', name: '天津'}]
+    },{
+        type: '时间查询',
+    },{
+        type: 'SELECT',
+        label: '订单状态',
+        placeholder: '全部',
+        field: 'order_status',
+        initialValue: '1',
+        width: 80,
+        list: [{id: '0', name: '全部'},{id: '1', name: '进行中'},{id: '2', name: '已结束'}]
+    }]
     componentDidMount() {
         this.requestList()
     }
     requestList() {
-        axios.ajax({
-            url: 'order/list',
-            data:{
-                params:this.params
-            }
-        }).then(res=>{
-            let list = res.result.item_list.map((item, index) => {
-                item.key = index;
-                return item;
-            });
-            this.setState({
-                list:list,
-                pagination:utils.pagination(res,(current)=>{
-                    this.params.page = current;
-                    this.requestList();
-                })
-            })
-        })
+        let _this = this
+        axios.requestList(this, 'order/list', this.params)
+
     }
      onRowClick = (record, index) => {
         let selectKey = [index];
@@ -50,6 +55,10 @@ export default class BasicTable extends React.Component {
             return
         }
         window.open(`/#/common/order/detail/${item.id}`, '_blank')
+    }
+    handleFilter = (params) =>{
+        this.params = params
+        this.requestList()
     }
     render() {
         const columns = [
@@ -96,7 +105,7 @@ export default class BasicTable extends React.Component {
         return (
             <div>
                 <Card>
-                    <FilterForm></FilterForm>
+                    <BaseForm formList={this.formList} fieldsSubmit={this.handleFilter}></BaseForm>
                 </Card>
                 <Card style={{marginTop: 10}}>
                     <Button onClick={this.handleToDetail}>订单详情</Button>
@@ -165,7 +174,7 @@ class FilterForm extends React.Component{
                 </FormItem>
                 <FormItem label="订单状态">
                     {
-                        getFieldDecorator('op_mode')(
+                        getFieldDecorator('order_status')(
                             <Select
                                 style={{ width: 80 }}
                                 placeholder="全部"
