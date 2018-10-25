@@ -1,8 +1,9 @@
 import React from 'react'
-import {HashRouter, Route, Switch} from 'react-router-dom'
+import {HashRouter, Route, Switch, Redirect} from 'react-router-dom'
 import App from './app'
 
 import Login from './pages/login'
+import Home from './pages/home/home'
 import Admin from './admin.js';
 import Buttons from './pages/ui/buttons'
 import Modals from './pages/ui/modals'
@@ -30,6 +31,8 @@ import BikeMap from './pages/map/bikeMap'
 
 import Bar from './pages/echarts/bar'
 
+import Permission from './pages/permission/index'
+
 import Common from './common'
 
 import NoMatch from './pages/nomatch'
@@ -38,38 +41,44 @@ export default class IRouter extends React.Component {
         return (
             <HashRouter>
                 <App>
-                    <Route path='/login' component={Login}></Route>
-                    <Route  path='/admin' render={() =>
-                        <Admin>
-                            <Switch>
-                                <Route exact={true} path='/admin/ui/buttons' component={Buttons}></Route>
-                                <Route exact={true} path='/admin/ui/modals' component={Modals}></Route>
-                                <Route exact={true} path='/admin/ui/loadings' component={Loading}></Route>
-                                <Route exact={true} path='/admin/ui/notification' component={Notification}></Route>
-                                <Route exact={true} path='/admin/ui/messages' component={Messages}></Route>
-                                <Route exact={true} path='/admin/ui/tabs' component={Tabs}></Route>
-                                <Route exact={true} path='/admin/ui/carousel' component={Carousel}></Route>
-                                <Route exact={true} path='/admin/ui/gallery' component={Gallery}></Route>
-                                <Route exact={true} path='/admin/form/login' component={FormLogin}></Route>
-                                <Route exact={true} path='/admin/form/reg' component={FormRegister}></Route>
-                                <Route exact={true} path='/admin/table/basic' component={BasicTable}></Route>
-                                <Route exact={true} path='/admin/table/high' component={HighTable}></Route>
-                                <Route exact={true} path='/admin/city' component={City}></Route>
-                                <Route exact={true} path='/admin/order' component={Order}></Route>
-                                <Route exact={true} path='/admin/user' component={User}></Route>
-                                <Route exact={true} path='/admin/bikeMap' component={BikeMap}></Route>
-                                <Route exact={true} path='/admin/echarts/bar' component={Bar}></Route>
-                                <Route component={NoMatch}></Route>
-                            </Switch>
-                        </Admin>
-                        }>
-                    </Route>
-                    <Route  path='/common' render={() =>
-                        <Common>
-                            <Route path='/common/order/detail/:orderId' component={OrderDetail}></Route>
-                        </Common>
-                    }
-                    />
+                    <Switch>
+                        <Route path='/login' component={Login}></Route>
+                        <Route  path='/common'  render={() =>
+                            <Common>
+                                <Route path='/common/order/detail/:orderId' component={OrderDetail}></Route>
+                            </Common>
+                        }
+                        />
+                        <Route  path='/' render={() =>
+                            <Admin>
+                                <Switch>
+
+                                    <Route exact={true} path='/home' component={Home}></Route>
+                                    <Route exact={true} path='/ui/buttons' component={Buttons}></Route>
+                                    <Route exact={true} path='/ui/modals' component={Modals}></Route>
+                                    <Route exact={true} path='/ui/loadings' component={Loading}></Route>
+                                    <Route exact={true} path='/ui/notification' component={Notification}></Route>
+                                    <Route exact={true} path='/ui/messages' component={Messages}></Route>
+                                    <Route exact={true} path='/ui/tabs' component={Tabs}></Route>
+                                    <Route exact={true} path='/ui/carousel' component={Carousel}></Route>
+                                    <Route exact={true} path='/ui/gallery' component={Gallery}></Route>
+                                    <Route exact={true} path='/form/login' component={FormLogin}></Route>
+                                    <Route exact={true} path='/form/reg' component={FormRegister}></Route>
+                                    <Route exact={true} path='/table/basic' component={BasicTable}></Route>
+                                    <Route exact={true} path='/table/high' component={HighTable}></Route>
+                                    <Route exact={true} path='/city' component={City}></Route>
+                                    <Route exact={true} path='/order' component={Order}></Route>
+                                    <Route exact={true} path='/user' component={User}></Route>
+                                    <Route exact={true} path='/bikeMap' component={BikeMap}></Route>
+                                    <Route exact={true} path='/charts/bar' component={Bar}></Route>
+                                    <Route exact={true} path='/permission' component={Permission}></Route>
+                                    <Redirect to='/home' ></Redirect>
+                                    <Route component={NoMatch}></Route>
+                                </Switch>
+                            </Admin>
+                            }>
+                        </Route>
+                    </Switch>
                 </App>
             </HashRouter>
         )
